@@ -6,7 +6,7 @@
 
 #define ZIP_FILE "file.zip"
 #define MAX_LENGTH 10
-#define THREADS 4  // Number of threads
+#define THREADS 6  // Number of threads
 
 const char *NUMBERS = "0123456789";
 const char *LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
