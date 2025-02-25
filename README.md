@@ -1,5 +1,5 @@
 # Bruteforcezip-for-termux
-this is a script for cracking the zip files passwords firstly change the file name to file.zip and paste this commands
+this is a script for cracking the zip files passwords firstly change the file name to file.zip and paste this commands and move the file.zip to Bruteforcezip-for-termux file
 
 
 git clone https://github.com/Chandi371/Bruteforcezip-for-termux
