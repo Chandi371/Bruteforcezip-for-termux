@@ -18,3 +18,5 @@ clang brute2.c -o brute2
 
 
 ./brute2
+
+warning: this is for only educational purpose and this is cracker of small passwords and u can modify my code and use it how u want
