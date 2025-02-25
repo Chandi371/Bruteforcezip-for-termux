@@ -6,7 +6,7 @@
 
 #define ZIP_FILE "file.zip"
 #define MAX_LENGTH 10
-#define THREADS 4  // Adjust thread count as needed
+#define THREADS 4  // Number of threads
 
 const char *NUMBERS = "0123456789";
 const char *LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -27,7 +27,7 @@ void generate_and_test(const char *charset, char *attempt, int pos, int max_len)
     if (pos == max_len) {
         attempt[pos] = '\0';
         pthread_mutex_lock(&lock);
-        printf("Trying: %s\r", attempt);
+        printf("\rTrying: %s", attempt);
         fflush(stdout);
         if (try_password(attempt)) {
             printf("\nPassword found: %s\n", attempt);
@@ -66,7 +66,10 @@ int main() {
         return 0;
     }
 
-    printf("Starting multi-threaded brute-force attack on %s\n", ZIP_FILE);
+    printf("The ZIP file is password protected. Starting brute-force in 1 second...\n");
+    sleep(1);
+
+    printf("Starting brute-force attack on %s\n", ZIP_FILE);
 
     pthread_t threads[THREADS];
     pthread_mutex_init(&lock, NULL);
