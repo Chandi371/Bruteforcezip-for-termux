@@ -1,32 +1,45 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <pthread.h>
 #include <string.h>
+#include <unistd.h>
 
-#define ZIP_FILE "file.zip"
+#define MAX_PASS_LEN 4
 
-void *brute_mixed(void *arg) {
-    char pass[4], command[100];
-    for (char c1 = 'a'; c1 <= 'z'; c1++) {
-        for (char c2 = 'a'; c2 <= 'z'; c2++) {
-            for (char c3 = '0'; c3 <= '9'; c3++) {  // Last character is a number
-                snprintf(pass, 4, "%c%c%c", c1, c2, c3);
-                snprintf(command, sizeof(command), "unzip -o -P %s %s > /dev/null 2>&1", pass, ZIP_FILE);
-                printf("Trying: %s\n", pass);
-                if (system(command) == 0) {
-                    printf("\n[+] Password found: %s\n", pass);
-                    exit(0);
-                }
-            }
-        }
-    }
-    return NULL;
+int try_password(const char *zip_file, const char *pass) {
+    char command[150];
+    sprintf(command, "unzip -o -P %s %s > /dev/null 2>&1", pass, zip_file);
+    
+    return (system(command) == 0);  // Returns 1 if successful
 }
 
 int main() {
-    pthread_t t1;
-    pthread_create(&t1, NULL, brute_mixed, NULL);
-    pthread_join(t1, NULL);
-    printf("\n[-] Password not found!\n");
-    return 0;
+    char zip_file[100];
+    printf("Enter ZIP file name: ");
+    scanf("%s", zip_file);
+
+    if (access(zip_file, F_OK) == -1) {
+        printf("Error: ZIP file not found!\n");
+        return 1;
+    }
+
+    char attempt[MAX_PASS_LEN];  // Buffer for password
+
+    printf("Starting brute-force attack on %s\n", zip_file);
+    
+    for (int i = 0; i <= 999; i++) {
+        sprintf(attempt, "%03d", i);  // Convert number to 3-digit string
+        
+        printf("\rTrying password: %s", attempt);
+        fflush(stdout);
+        
+        if (try_password(zip_file, attempt)) {
+            printf("\nPassword found: %s\n", attempt);
+            return 0;
+        }
+
+        usleep(10000); // Small delay (10ms)
+    }
+
+    printf("\nPassword not found!\n");
+    return 1;
 }
