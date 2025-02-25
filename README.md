@@ -20,3 +20,4 @@ clang brute2.c -o brute2
 ./brute2
 
 warning: this is for only educational purpose and this will find only 10 character and no symbols
+this is a lightweight tool
