@@ -1,5 +1,5 @@
 # Bruteforcezip-for-termux
-this is a script for cracking the zip files passwords the zip file need to be in downloads folder or termux folder for script to detect
+this is a script for cracking the zip files passwords the zip file need to be in downloads folder for script to detect
 
 
 git clone https://github.com/Chandi371/Bruteforcezip-for-termux
